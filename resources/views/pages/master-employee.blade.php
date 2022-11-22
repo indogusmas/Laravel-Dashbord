@@ -137,13 +137,19 @@
                                 if (j === lastPage) {
                                     break;
                                 }
-
                                 $('#paginationAjax').append(`
                                     <li class="page-item">
                                         <a class="page-link" onclick="fetchDataMaster('${rootUrl + `page=${j+1}`}')">${j+1}</a>
                                     </li>
                                 `); 
                             }
+
+                        $('#paginationAjax').append(`
+                        <li class="page-item">
+                            <a class="page-link" ${nextPage == null ? '' : `onclick="fetchDataMaster('${nextPage}')"` }">Next</a>
+                        </li>
+                    `);
+
                     }
                 }
             });

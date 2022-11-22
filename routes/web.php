@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -267,12 +268,8 @@ Route::get('/master-employee',function(){
     ]);
 });
 
+Route::get('/master-product',[ProductController::class,'index']);
+
 Route::prefix('/json')->group(function(){
     Route::get('/masteremployee',[EmployeeController::class,'index']);
-});
-
-Route::get('/master-product',function(){
-    return view('pages.master-product',[
-        'type_menu' => 'master-product'
-    ]);
 });

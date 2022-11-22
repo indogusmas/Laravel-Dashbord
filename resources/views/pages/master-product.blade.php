@@ -1,6 +1,6 @@
 @extends('layouts.app-2')
 
-@section('title', 'Dashboard')
+@section('title', 'Master Product')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -18,6 +18,7 @@
             <div class="section-header">
                 <h1>Master Product</h1>
             </div>
+            <p class="section-lead">Example Table with Paginate Laravel Bootstrap</p>
         </section>
 
         <div class="row">
@@ -25,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Advanced Table</h4>
-                        <div class="card-header-form">
+                        {{-- <div class="card-header-form">
                             <form>
                                 <div class="input-group">
                                     <input type="text"
@@ -36,41 +37,39 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table-striped table" id="table">
                                 <thead>
                                     <tr>
-                                        <th>Produk</th>
-                                        <th>Harga</th>
-                                        <th>Stok</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyProduct">
-                                    <tr>
-                                        <td>Create a mobile app</td>
-                                        <td class="align-middle">
-                                            <div class="progress"
-                                                data-height="4"
-                                                data-toggle="tooltip"
-                                                title="100%">
-                                                <div class="progress-bar bg-success"
-                                                    data-width="100"></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <img alt="image"
-                                                src="{{ asset('img/avatar/avatar-5.png') }}"
-                                                class="rounded-circle"
-                                                width="35"
-                                                data-toggle="tooltip"
-                                                title="Wildan Ahdian">
-                                        </td>
-                                    </tr>
+                                    @forelse ($products as $item)
+                                        <tr>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>
+                                                <a class="btn btn-primary" href="#">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            Data empty
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
+                            <div class="card-footer text-right">
+                                <nav class="d-inline-block">
+                                    {{$products->links() }}
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,35 +87,6 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <!-- Page Specific JS File -->
     <script type="text/javascript">
-       $(document).ready(function() {
-            setData(mockDataProduct);
-       });
-
-       const mockDataProduct = [
-        {
-            product     : "Kemeja Panel 12",
-            price       : 250000,
-            quantity    : 100
-        },
-        {
-            product     : "Kemeja Panel 13",
-            price       : 300000,
-            quantity    : 200
-        }
-       ];
-
-       const setData = (listData) => {
-        $('#tbodyProduct').empty();
-        listData.forEach(data => {
-            $('#tbodyProduct').append(`
-                <tr>
-                    <td>${data.product}</td>
-                    <td class="align-middle">${data.price}</td>
-                    <td>${data.quantity}</td>
-                </tr>
-            `);
-        });
-       };
 
     </script>
 @endpush
