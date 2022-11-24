@@ -268,7 +268,9 @@ Route::get('/master-employee',function(){
     ]);
 });
 
-Route::get('/master-product',[ProductController::class,'index']);
+//Route::get('/manageproduct',[ProductController::class,'index']);
+Route::resource('manageproduct', ProductController::class);
+Route::get('/manageproduct/create',[ProductController::class,'create'])->name('manageproduct/create');
 
 Route::prefix('/json')->group(function(){
     Route::get('/masteremployee',[EmployeeController::class,'index']);

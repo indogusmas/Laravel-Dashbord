@@ -14,6 +14,7 @@
 
 @section('main')
     <div class="main-content">
+        @include('components.response')
         <section class="section">
             <div class="section-header">
                 <h1>Master Product</h1>
@@ -38,6 +39,9 @@
                                 </div>
                             </form>
                         </div> --}}
+                        <div class="card-header-form">
+                            <a href="{{route('manageproduct/create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Data</a>
+                        </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -46,16 +50,17 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Description</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyProduct">
                                     @forelse ($products as $item)
                                         <tr>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->description }}</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="#">Detail</a>
+                                            <td colspan="1">{{ $item->name }}</td>
+                                            <td colspan="1">{{ $item->description }}</td>
+                                            <td colspan="2">
+                                                <a class="btn-sm btn-primary m-1" href="{{ url('manageproduct',['manageproduct' => $item->id]) }}">Detail</a>
+                                                <a class="btn-sm btn-danger m1" href="#">Edit</a>
                                             </td>
                                         </tr>
                                     @empty

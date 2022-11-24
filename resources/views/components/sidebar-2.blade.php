@@ -16,9 +16,9 @@
                         <a class="nav-link"
                             href="{{ url('master-employee')}}">Master Employee</a>
                     </li>
-                    <li class="{{ Request::is('master-product') ? 'active' : ''}}">
+                    <li class="{{ Request::is('manageproduct') ? 'active' : ''}}">
                         <a class="nav-link"
-                            href="{{ url('master-product')}}">Master Product</a>
+                            href="{{ url('manageproduct')}}">Master Product</a>
                     </li>
                 </ul>
             </li>

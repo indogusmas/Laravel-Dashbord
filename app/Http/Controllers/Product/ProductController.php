@@ -19,9 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(50);
+        $products = Product::orderby('id','desc')->paginate(50);
         $type_menu = 'master-product';
-
+        
         return view('pages.master-product',[
             'products' => $products,
             'type_menu' => $type_menu,
@@ -35,7 +35,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.master-product-create',[
+            'type_menu' => 'master-product'
+        ]);
     }
 
     /**
@@ -46,7 +48,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $product = $request->only([
+                'name',
+                'description'
+            ]);
+            Product::create($product);
+            session()->put('msg',[
+                'code'      => 'success',
+                'status'    => 'success',
+                'msg'       => 'Success Add Data'
+            ]);
+        } catch (\Throwable $th) {
+            session()->put('msg', [
+                'msg'=> $th->getMessage(),
+                'code'=>'danger',
+                'status'=>'danger'
+            ]);
+        }
+
+        return redirect('/manageproduct');
+
     }
 
     /**
@@ -57,7 +79,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('pages.master-product-detail',[
+            'type_menu' => 'master-product',
+            'product'   => $product
+        ]);
     }
 
     /**
@@ -91,6 +117,23 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+            $this->setMessage('success','Delete Data Success');
+        } catch (\Throwable $th) {
+            $this->setMessage('danger','Delete Data Faield');
+        }
+
+        return redirect('/manageproduct');
+    }
+
+    public function setMessage($code, $msg)
+    {
+        session()->put('msg',[
+            'code'  => $code,
+            'status'    => $code,
+            'msg'       => $msg
+        ]);
     }
 }
